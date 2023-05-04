@@ -1,0 +1,34 @@
+name: Chrome Web Store Upload
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build extension
+        run: npm run build
+
+      - name: Upload to Chrome Web Store
+        uses: extenda/actions-chrome-web-store@v1
+        with:
+          appId: cnlaihffgimgpghmbmkkiannpeglieie
+          clientId: 683304040820-5ert8cf3t8n3j1qbmr4usqdos9lekqeg.apps.googleusercontent.com
+          clientSecret: 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
+          refreshToken: 1//03y7Vu5iZWKEoCgYIARAAGAMSNwF-L9IrhbHrIoxtRgTB33J7CUcBSdFFfQhAeIM_MOhZtSr-XvE8f3nOTc15pJxiVMpcJv_DfRg
+          zipPath: dist/my-extension.zip
